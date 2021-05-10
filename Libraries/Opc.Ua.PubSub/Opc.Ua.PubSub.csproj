@@ -11,10 +11,18 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <Target Name="AdjustVersion" DependsOnTargets="GetBuildVersion" AfterTargets="GetBuildVersion">
+    <PropertyGroup Condition="'$(NBGV_PublicRelease)' == 'True'">
+      <Version>$(NBGV_Version)-rc0</Version>
+      <VersionSuffix>$(NBGV_VersionRevision)-rc0</VersionSuffix>
+      <PackageVersion>$(NBGV_Version)-rc0</PackageVersion>
+    </PropertyGroup>
+  </Target>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <PackageId>$(PackageId).Debug</PackageId>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(SignAssembly)' == 'true'">
     <DefineConstants>$(DefineConstants);SIGNASSEMBLY</DefineConstants>
   </PropertyGroup>
@@ -23,18 +31,11 @@
     <ProjectReference Include="..\..\Stack\Opc.Ua.Core\Opc.Ua.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IdentityModel.Selectors" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Linq" />
-    <Reference Include="System.ServiceModel" />
-  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="MQTTnet" Version="3.0.15" />
     <PackageReference Include="System.Net.NetworkInformation" Version="4.3.0" />

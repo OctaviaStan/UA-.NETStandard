@@ -11,13 +11,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <Target Name="AdjustVersion" DependsOnTargets="GetBuildVersion" AfterTargets="GetBuildVersion">
-    <PropertyGroup Condition="'$(NBGV_PublicRelease)' == 'True'">
-      <Version>$(NBGV_Version)-rc0</Version>
-      <VersionSuffix>$(NBGV_VersionRevision)-rc0</VersionSuffix>
-      <PackageVersion>$(NBGV_Version)-rc0</PackageVersion>
-    </PropertyGroup>
-  </Target>
+  <PropertyGroup Condition="'$(NBGV_PublicRelease)' == 'True'">
+    <Version>$(NBGV_Version)-rc0</Version>
+    <VersionSuffix>$(NBGV_VersionRevision)-rc0</VersionSuffix>
+    <PackageVersion>$(NBGV_Version)-rc0</PackageVersion>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <PackageId>$(PackageId).Debug</PackageId>
